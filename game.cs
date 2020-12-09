@@ -33,20 +33,21 @@ class game
 		Console.WriteLine("———————————————————");
 		foreach (List<string> row in gameMap.data) {
 			Console.Write("| ");
-			Console.ForegroundColor = ConsoleColor.Black;
 			foreach (string cell in row) {
 				offset = !offset;
 				if (offset) {
-					Console.BackgroundColor = ConsoleColor.Blue;
+					Console.BackgroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ConsoleColor.Black;
 				}
 				else {
-					Console.BackgroundColor = ConsoleColor.White;
+					Console.BackgroundColor = ConsoleColor.DarkGray;
+					Console.ForegroundColor = ConsoleColor.White;
 				}
 				Console.Write(cell);
 				Console.BackgroundColor = ConsoleColor.Black;
+				Console.ForegroundColor = ConsoleColor.White;
 				Console.Write(" ");
 			}
-			Console.ForegroundColor = ConsoleColor.White;
 			Console.Write("|\n");
 			offset = !offset;
 		}
