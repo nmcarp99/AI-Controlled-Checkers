@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 
 class map {
-	const string blank = " ";
-	const string player1 = "X";
-	const string player2 = "O";
+	public const string blank = " ";
+	public const string player1 = "X";
+	public const string player2 = "O";
 	public List<List<string>> data = new List<List<string>> {
 		new List<string> { blank, player2, blank, player2, blank, player2, blank, player2 },
 		new List<string> { player2, blank, player2, blank, player2, blank, player2, blank },
@@ -37,10 +37,14 @@ class game
 				offset = !offset;
 				if (offset) {
 					Console.BackgroundColor = ConsoleColor.Red;
-					Console.ForegroundColor = ConsoleColor.Black;
 				}
 				else {
 					Console.BackgroundColor = ConsoleColor.DarkGray;
+				}
+				if (cell == map.player1) {
+					Console.ForegroundColor = ConsoleColor.Cyan;
+				}
+				else if (cell == map.player2) {
 					Console.ForegroundColor = ConsoleColor.White;
 				}
 				Console.Write(cell);
