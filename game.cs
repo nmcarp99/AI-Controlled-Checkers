@@ -72,7 +72,11 @@ class game
 	public map gameMap = new map();
 	public void draw() {
 		bool offset = false;
+		Console.BackgroundColor = ConsoleColor.White;
+		Console.ForegroundColor = ConsoleColor.Black;
 		Console.Clear();
+		Console.BackgroundColor = ConsoleColor.Black;
+		Console.ForegroundColor = ConsoleColor.White;
 		Console.WriteLine("╔═════════════════════════════════╗");
 		for (int i = 0; i < 8; i++) {
 			Console.Write("║ ");

@@ -89,5 +89,7 @@ class main {
 				break;
 			}
 		}
+		Console.BackgroundColor = ConsoleColor.Black;
+		Console.Clear();
 	}
 }
