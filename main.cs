@@ -4,6 +4,7 @@ class main {
 	static void Main(string[] Args) {
 		game currentGame = new game();
 		ConsoleKeyInfo currentKey = new ConsoleKeyInfo();
+		ConsoleKey currentAltitudeKey = new ConsoleKey();
 		piece selectedPiece = null;
 		while (!currentGame.gameOver) {
 			currentGame.draw();
@@ -11,11 +12,22 @@ class main {
 			switch (currentKey.Key) {
 				case ConsoleKey.LeftArrow:
 				if (selectedPiece != null) {
-					if (selectedPiece.value == map.player1) {
-						selectedPiece.move(new int[] {-1, 1});
+					if (selectedPiece.king) {
+						if (currentAltitudeKey == ConsoleKey.UpArrow) {
+							selectedPiece.move(new int[] {-1, -1}, currentGame.gameMap);
+						}
+						else if (currentAltitudeKey == ConsoleKey.DownArrow) {
+							selectedPiece.move(new int[] {-1, 1}, currentGame.gameMap);
+						}
+						currentAltitudeKey = new ConsoleKey();
 					}
-					else if (selectedPiece.value == map.player2) {
-						selectedPiece.move(new int[] {-1, -1});
+					else {
+						if (selectedPiece.value == map.player1) {
+							selectedPiece.move(new int[] {-1, 1}, currentGame.gameMap);
+						}
+						else if (selectedPiece.value == map.player2) {
+							selectedPiece.move(new int[] {-1, -1}, currentGame.gameMap);
+						}
 					}
 					selectedPiece = null;
 				}
@@ -25,11 +37,22 @@ class main {
 				break;
 				case ConsoleKey.RightArrow:
 				if (selectedPiece != null) {
-					if (selectedPiece.value == map.player1) {
-						selectedPiece.move(new int[] {1, 1});
+					if (selectedPiece.king) {
+						if (currentAltitudeKey == ConsoleKey.UpArrow) {
+							selectedPiece.move(new int[] {1, -1}, currentGame.gameMap);
+						}
+						else if (currentAltitudeKey == ConsoleKey.DownArrow) {
+							selectedPiece.move(new int[] {1, 1}, currentGame.gameMap);
+						}
+						currentAltitudeKey = new ConsoleKey();
 					}
-					else if (selectedPiece.value == map.player2) {
-						selectedPiece.move(new int[] {1, -1});
+					else {
+						if (selectedPiece.value == map.player1) {
+							selectedPiece.move(new int[] {1, 1}, currentGame.gameMap);
+						}
+						else if (selectedPiece.value == map.player2) {
+							selectedPiece.move(new int[] {1, -1}, currentGame.gameMap);
+						}
 					}
 					selectedPiece = null;
 				}
@@ -38,12 +61,18 @@ class main {
 				}
 				break;
 				case ConsoleKey.UpArrow:
-				if (selectedPiece == null) {
+				if (selectedPiece != null) {
+					currentAltitudeKey = ConsoleKey.UpArrow;
+				}
+				else {
 					currentGame.gameMap.move(new int[] {0, -1});
 				}
 				break;
 				case ConsoleKey.DownArrow:
-				if (selectedPiece == null) {
+				if (selectedPiece != null) {
+					currentAltitudeKey = ConsoleKey.DownArrow;
+				}
+				else {
 					currentGame.gameMap.move(new int[] {0, 1});
 				}
 				break;

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 class map {
 	public const string blank = "   ";
-	public const string player1 = " ⛀ "; //26c1 26c3 for king
-	public const string player2 = " ⛂ "; //26c2 26c4 for king
+	public const string player1 = " ⛀ ";
+	public const string player1King = " ⛁ ";
+	public const string player2 = " ⛂ ";
+	public const string player2King = " ⛃ ";
 	public const ConsoleColor SelectedBackgroundColor = ConsoleColor.Yellow;
 	public const ConsoleColor BackgroundColor1 = ConsoleColor.Red;
 	public const ConsoleColor BackgroundColor2 = ConsoleColor.Black;
@@ -39,7 +41,7 @@ class map {
 	};
 	public piece findPiece(int[] index) {
 		foreach (piece currentPiece in data) {
-			if (currentPiece.position[0] == index[0] && currentPiece.position[1] == index[1]) {
+			if (currentPiece.position[0] == index[0] && currentPiece.position[1] == index[1] && !currentPiece.dead) {
 				return currentPiece;
 			}
 		}
@@ -93,7 +95,15 @@ class game
 					else if (currentPiece.value == map.player2) {
 						Console.ForegroundColor = map.ForegroundColor2;
 					}
-					Console.Write(currentPiece.value);
+					if (currentPiece.king && currentPiece.value == map.player1) {
+						Console.Write(map.player1King);
+					}
+					else if (currentPiece.king && currentPiece.value == map.player2) {
+						Console.Write(map.player2King);
+					}
+					else {
+						Console.Write(currentPiece.value);
+					}
 				}
 				else {
 					Console.Write(map.blank);
