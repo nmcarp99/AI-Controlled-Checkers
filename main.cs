@@ -4,24 +4,59 @@ class main {
 	static void Main(string[] Args) {
 		game currentGame = new game();
 		ConsoleKeyInfo currentKey = new ConsoleKeyInfo();
+		piece selectedPiece = null;
 		while (!currentGame.gameOver) {
 			currentGame.draw();
 			currentKey = Console.ReadKey();
 			switch (currentKey.Key) {
 				case ConsoleKey.LeftArrow:
-				currentGame.gameMap.move(new int[] {-1, 0});
+				if (selectedPiece != null) {
+					if (selectedPiece.value == map.player1) {
+						selectedPiece.move(new int[] {-1, 1});
+					}
+					else if (selectedPiece.value == map.player2) {
+						selectedPiece.move(new int[] {-1, -1});
+					}
+					selectedPiece = null;
+				}
+				else {
+					currentGame.gameMap.move(new int[] {-1, 0});
+				}
 				break;
 				case ConsoleKey.RightArrow:
-				currentGame.gameMap.move(new int[] {1, 0});
+				if (selectedPiece != null) {
+					if (selectedPiece.value == map.player1) {
+						selectedPiece.move(new int[] {1, 1});
+					}
+					else if (selectedPiece.value == map.player2) {
+						selectedPiece.move(new int[] {1, -1});
+					}
+					selectedPiece = null;
+				}
+				else {
+					currentGame.gameMap.move(new int[] {1, 0});
+				}
 				break;
 				case ConsoleKey.UpArrow:
-				currentGame.gameMap.move(new int[] {0, -1});
+				if (selectedPiece == null) {
+					currentGame.gameMap.move(new int[] {0, -1});
+				}
 				break;
 				case ConsoleKey.DownArrow:
-				currentGame.gameMap.move(new int[] {0, 1});
+				if (selectedPiece == null) {
+					currentGame.gameMap.move(new int[] {0, 1});
+				}
 				break;
 				case ConsoleKey.Escape:
-				currentGame.gameOver = true;
+				if (selectedPiece != null) {
+					selectedPiece = null;
+				}
+				else {
+					currentGame.gameOver = true;
+				}
+				break;
+				case ConsoleKey.Spacebar:
+				selectedPiece = currentGame.gameMap.findPiece(new int[] {currentGame.gameMap.getPos()[1], currentGame.gameMap.getPos()[0]});
 				break;
 			}
 		}
