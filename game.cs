@@ -6,16 +6,40 @@ class map {
 	public const string player1 = "X";
 	public const string player2 = "O";
 	private int[] selectedPosition = new int[] {0, 0};
-	public List<List<string>> data = new List<List<string>> {
-		new List<string> { blank, player2, blank, player2, blank, player2, blank, player2 },
-		new List<string> { player2, blank, player2, blank, player2, blank, player2, blank },
-		new List<string> { blank, player2, blank, player2, blank, player2, blank, player2 },
-		new List<string> { blank, blank, blank, blank, blank, blank, blank, blank },
-		new List<string> { blank, blank, blank, blank, blank, blank, blank, blank },
-		new List<string> { player1, blank, player1, blank, player1, blank, player1, blank },
-		new List<string> { blank, player1, blank, player1, blank, player1, blank, player1 },
-		new List<string> { player1, blank, player1, blank, player1, blank, player1, blank }
+	public List<piece> data = new List<piece> {
+		new piece(player1, new int[] {0, 0}),
+		new piece (player1, new int[] {2, 0}),
+		new piece (player1, new int[] {4, 0}),
+		new piece (player1, new int[] {6, 0}),
+		new piece (player1, new int[] {1, 1}),
+		new piece (player1, new int[] {3, 1}),
+		new piece (player1, new int[] {5, 1}),
+		new piece (player1, new int[] {7, 1}),
+		new piece (player1, new int[] {0, 2}),
+		new piece (player1, new int[] {2, 2}),
+		new piece (player1, new int[] {4, 2}),
+		new piece (player1, new int[] {6, 2}),
+		new piece (player2, new int[] {1, 5}),
+		new piece (player2, new int[] {3, 5}),
+		new piece (player2, new int[] {5, 5}),
+		new piece (player2, new int[] {7, 5}),
+		new piece (player2, new int[] {0, 6}),
+		new piece (player2, new int[] {2, 6}),
+		new piece (player2, new int[] {4, 6}),
+		new piece (player2, new int[] {6, 6}),
+		new piece (player2, new int[] {1, 7}),
+		new piece (player2, new int[] {3, 7}),
+		new piece (player2, new int[] {5, 7}),
+		new piece (player2, new int[] {7, 7}),
 	};
+	public piece findPiece(int[] index) {
+		foreach (piece currentPiece in data) {
+			if (currentPiece.position[0] == index[0] && currentPiece.position[1] == index[1]) {
+				return currentPiece;
+			}
+		}
+		return null;
+	}
 	public int[] getPos() {
 		return selectedPosition;
 	}
@@ -28,9 +52,6 @@ class map {
 				selectedPosition[1] += relativePosition[0];
 			}
 		}
-	}
-	public string getCell(int x, int y) {
-		return data[y][x];
 	}
 	public map(map newMap = null) {
 		if (newMap != null) {
@@ -46,9 +67,9 @@ class game
 		bool offset = false;
 		Console.Clear();
 		Console.WriteLine("———————————————————");
-		for (int i = 0; i < gameMap.data.Count; i++) {
+		for (int i = 0; i < 8; i++) {
 			Console.Write("| ");
-			for (int j = 0; j < gameMap.data[i].Count; j++) {
+			for (int j = 0; j < 8; j++) {
 				offset = !offset;
 				if (i == gameMap.getPos()[0] && j == gameMap.getPos()[1]) {
 					Console.BackgroundColor = ConsoleColor.Green;
@@ -59,13 +80,19 @@ class game
 				else {
 					Console.BackgroundColor = ConsoleColor.DarkGray;
 				}
-				if (gameMap.data[i][j] == map.player1) {
-					Console.ForegroundColor = ConsoleColor.Cyan;
+				piece currentPiece = gameMap.findPiece(new int[] {j, i});
+				if (currentPiece != null) {
+					if (currentPiece.value == map.player1) {
+						Console.ForegroundColor = ConsoleColor.Cyan;
+					}
+					else if (currentPiece.value == map.player2) {
+						Console.ForegroundColor = ConsoleColor.White;
+					}
+					Console.Write(currentPiece.value);
 				}
-				else if (gameMap.data[i][j] == map.player2) {
-					Console.ForegroundColor = ConsoleColor.White;
+				else {
+					Console.Write(map.blank);
 				}
-				Console.Write(gameMap.data[i][j]);
 				Console.BackgroundColor = ConsoleColor.Black;
 				Console.ForegroundColor = ConsoleColor.White;
 				Console.Write(" ");
