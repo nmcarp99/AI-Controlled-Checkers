@@ -2,40 +2,40 @@ using System;
 using System.Collections.Generic;
 
 class map {
-	public const string blank = " ";
-	public const string player1 = "X";
-	public const string player2 = "O";
-	public const ConsoleColor SelectedBackgroundColor = ConsoleColor.Green;
+	public const string blank = "   ";
+	public const string player1 = " ⛀ "; //26c1 26c3 for king
+	public const string player2 = " ⛂ "; //26c2 26c4 for king
+	public const ConsoleColor SelectedBackgroundColor = ConsoleColor.Yellow;
 	public const ConsoleColor BackgroundColor1 = ConsoleColor.Red;
-	public const ConsoleColor BackgroundColor2 = ConsoleColor.DarkGray;
-	public const ConsoleColor ForegroundColor1 = ConsoleColor.Cyan;
-	public const ConsoleColor ForegroundColor2 = ConsoleColor.White;
+	public const ConsoleColor BackgroundColor2 = ConsoleColor.Black;
+	public const ConsoleColor ForegroundColor1 = ConsoleColor.White;
+	public const ConsoleColor ForegroundColor2 = ConsoleColor.Red;
 	private int[] selectedPosition = new int[] {0, 0};
 	public List<piece> data = new List<piece> {
-		new piece(player1, new int[] {0, 0}),
-		new piece (player1, new int[] {2, 0}),
-		new piece (player1, new int[] {4, 0}),
-		new piece (player1, new int[] {6, 0}),
-		new piece (player1, new int[] {1, 1}),
-		new piece (player1, new int[] {3, 1}),
-		new piece (player1, new int[] {5, 1}),
-		new piece (player1, new int[] {7, 1}),
-		new piece (player1, new int[] {0, 2}),
-		new piece (player1, new int[] {2, 2}),
-		new piece (player1, new int[] {4, 2}),
-		new piece (player1, new int[] {6, 2}),
-		new piece (player2, new int[] {1, 5}),
-		new piece (player2, new int[] {3, 5}),
-		new piece (player2, new int[] {5, 5}),
-		new piece (player2, new int[] {7, 5}),
-		new piece (player2, new int[] {0, 6}),
-		new piece (player2, new int[] {2, 6}),
-		new piece (player2, new int[] {4, 6}),
-		new piece (player2, new int[] {6, 6}),
-		new piece (player2, new int[] {1, 7}),
-		new piece (player2, new int[] {3, 7}),
-		new piece (player2, new int[] {5, 7}),
-		new piece (player2, new int[] {7, 7}),
+		new piece(player1, new int[] {1, 0}),
+		new piece (player1, new int[] {3, 0}),
+		new piece (player1, new int[] {5, 0}),
+		new piece (player1, new int[] {7, 0}),
+		new piece (player1, new int[] {0, 1}),
+		new piece (player1, new int[] {2, 1}),
+		new piece (player1, new int[] {4, 1}),
+		new piece (player1, new int[] {6, 1}),
+		new piece (player1, new int[] {1, 2}),
+		new piece (player1, new int[] {3, 2}),
+		new piece (player1, new int[] {5, 2}),
+		new piece (player1, new int[] {7, 2}),
+		new piece (player2, new int[] {0, 5}),
+		new piece (player2, new int[] {2, 5}),
+		new piece (player2, new int[] {4, 5}),
+		new piece (player2, new int[] {6, 5}),
+		new piece (player2, new int[] {1, 6}),
+		new piece (player2, new int[] {3, 6}),
+		new piece (player2, new int[] {5, 6}),
+		new piece (player2, new int[] {7, 6}),
+		new piece (player2, new int[] {0, 7}),
+		new piece (player2, new int[] {2, 7}),
+		new piece (player2, new int[] {4, 7}),
+		new piece (player2, new int[] {6, 7}),
 	};
 	public piece findPiece(int[] index) {
 		foreach (piece currentPiece in data) {
@@ -71,9 +71,9 @@ class game
 	public void draw() {
 		bool offset = false;
 		Console.Clear();
-		Console.WriteLine("———————————————————");
+		Console.WriteLine("╔═════════════════════════════════╗");
 		for (int i = 0; i < 8; i++) {
-			Console.Write("| ");
+			Console.Write("║ ");
 			for (int j = 0; j < 8; j++) {
 				offset = !offset;
 				if (i == gameMap.getPos()[0] && j == gameMap.getPos()[1]) {
@@ -102,10 +102,10 @@ class game
 				Console.ForegroundColor = ConsoleColor.White;
 				Console.Write(" ");
 			}
-			Console.Write("|\n");
+			Console.Write("║\n");
 			offset = !offset;
 		}
-		Console.WriteLine("———————————————————");
+		Console.WriteLine("╚═════════════════════════════════╝");
 	}
 	public game() {
 		
