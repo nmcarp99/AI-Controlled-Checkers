@@ -51,12 +51,7 @@ class game
 			for (int j = 0; j < gameMap.data[i].Count; j++) {
 				offset = !offset;
 				if (i == gameMap.getPos()[0] && j == gameMap.getPos()[1]) {
-					if (offset) {
-						Console.BackgroundColor = ConsoleColor.Magenta;
-					}
-					else {
-						Console.BackgroundColor = ConsoleColor.Green;
-					}
+					Console.BackgroundColor = ConsoleColor.Green;
 				}
 				else if (offset) {
 					Console.BackgroundColor = ConsoleColor.Red;

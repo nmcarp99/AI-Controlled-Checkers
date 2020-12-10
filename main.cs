@@ -20,6 +20,9 @@ class main {
 				case ConsoleKey.DownArrow:
 				currentGame.gameMap.move(new int[] {0, 1});
 				break;
+				case ConsoleKey.Escape:
+				currentGame.gameOver = true;
+				break;
 			}
 		}
 	}
