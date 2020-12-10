@@ -5,6 +5,11 @@ class map {
 	public const string blank = " ";
 	public const string player1 = "X";
 	public const string player2 = "O";
+	public const ConsoleColor SelectedBackgroundColor = ConsoleColor.Green;
+	public const ConsoleColor BackgroundColor1 = ConsoleColor.Red;
+	public const ConsoleColor BackgroundColor2 = ConsoleColor.DarkGray;
+	public const ConsoleColor ForegroundColor1 = ConsoleColor.Cyan;
+	public const ConsoleColor ForegroundColor2 = ConsoleColor.White;
 	private int[] selectedPosition = new int[] {0, 0};
 	public List<piece> data = new List<piece> {
 		new piece(player1, new int[] {0, 0}),
@@ -72,21 +77,21 @@ class game
 			for (int j = 0; j < 8; j++) {
 				offset = !offset;
 				if (i == gameMap.getPos()[0] && j == gameMap.getPos()[1]) {
-					Console.BackgroundColor = ConsoleColor.Green;
+					Console.BackgroundColor = map.SelectedBackgroundColor;
 				}
 				else if (offset) {
-					Console.BackgroundColor = ConsoleColor.Red;
+					Console.BackgroundColor = map.BackgroundColor1;
 				}
 				else {
-					Console.BackgroundColor = ConsoleColor.DarkGray;
+					Console.BackgroundColor = map.BackgroundColor2;
 				}
 				piece currentPiece = gameMap.findPiece(new int[] {j, i});
 				if (currentPiece != null) {
 					if (currentPiece.value == map.player1) {
-						Console.ForegroundColor = ConsoleColor.Cyan;
+						Console.ForegroundColor = map.ForegroundColor1;
 					}
 					else if (currentPiece.value == map.player2) {
-						Console.ForegroundColor = ConsoleColor.White;
+						Console.ForegroundColor = map.ForegroundColor2;
 					}
 					Console.Write(currentPiece.value);
 				}
