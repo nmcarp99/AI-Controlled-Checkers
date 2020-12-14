@@ -11,70 +11,16 @@ class main {
 			currentKey = Console.ReadKey();
 			switch (currentKey.Key) {
 				case ConsoleKey.LeftArrow:
-				if (selectedPiece != null) {
-					if (selectedPiece.king) {
-						if (currentAltitudeKey == ConsoleKey.UpArrow) {
-							selectedPiece.move(new int[] {-1, -1}, currentGame.gameMap);
-						}
-						else if (currentAltitudeKey == ConsoleKey.DownArrow) {
-							selectedPiece.move(new int[] {-1, 1}, currentGame.gameMap);
-						}
-						currentAltitudeKey = new ConsoleKey();
-					}
-					else {
-						if (selectedPiece.value == map.player1) {
-							selectedPiece.move(new int[] {-1, 1}, currentGame.gameMap);
-						}
-						else if (selectedPiece.value == map.player2) {
-							selectedPiece.move(new int[] {-1, -1}, currentGame.gameMap);
-						}
-					}
-					selectedPiece = null;
-				}
-				else {
-					currentGame.gameMap.move(new int[] {-1, 0});
-				}
+				currentGame.gameMap.moveLeft(ref selectedPiece, ref currentAltitudeKey, ref currentGame);
 				break;
 				case ConsoleKey.RightArrow:
-				if (selectedPiece != null) {
-					if (selectedPiece.king) {
-						if (currentAltitudeKey == ConsoleKey.UpArrow) {
-							selectedPiece.move(new int[] {1, -1}, currentGame.gameMap);
-						}
-						else if (currentAltitudeKey == ConsoleKey.DownArrow) {
-							selectedPiece.move(new int[] {1, 1}, currentGame.gameMap);
-						}
-						currentAltitudeKey = new ConsoleKey();
-					}
-					else {
-						if (selectedPiece.value == map.player1) {
-							selectedPiece.move(new int[] {1, 1}, currentGame.gameMap);
-						}
-						else if (selectedPiece.value == map.player2) {
-							selectedPiece.move(new int[] {1, -1}, currentGame.gameMap);
-						}
-					}
-					selectedPiece = null;
-				}
-				else {
-					currentGame.gameMap.move(new int[] {1, 0});
-				}
+				currentGame.gameMap.moveRight(ref selectedPiece, ref currentAltitudeKey, ref currentGame);
 				break;
 				case ConsoleKey.UpArrow:
-				if (selectedPiece != null) {
-					currentAltitudeKey = ConsoleKey.UpArrow;
-				}
-				else {
-					currentGame.gameMap.move(new int[] {0, -1});
-				}
+				currentGame.gameMap.moveUp(ref selectedPiece, ref currentAltitudeKey, ref currentGame);
 				break;
 				case ConsoleKey.DownArrow:
-				if (selectedPiece != null) {
-					currentAltitudeKey = ConsoleKey.DownArrow;
-				}
-				else {
-					currentGame.gameMap.move(new int[] {0, 1});
-				}
+				currentGame.gameMap.moveDown(ref selectedPiece, ref currentAltitudeKey, ref currentGame);
 				break;
 				case ConsoleKey.Escape:
 				if (selectedPiece != null) {

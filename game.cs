@@ -60,6 +60,72 @@ class map {
 			}
 		}
 	}
+	public void moveDown(ref piece selectedPiece, ref ConsoleKey currentAltitudeKey, ref game currentGame) {
+		if (selectedPiece != null) {
+			currentAltitudeKey = ConsoleKey.DownArrow;
+		}
+		else {
+			currentGame.gameMap.move(new int[] {0, 1});
+		}
+	}
+	public void moveUp(ref piece selectedPiece, ref ConsoleKey currentAltitudeKey, ref game currentGame) {
+		if (selectedPiece != null) {
+			currentAltitudeKey = ConsoleKey.UpArrow;
+		}
+		else {
+			currentGame.gameMap.move(new int[] {0, -1});
+		}
+	}
+	public void moveRight(ref piece selectedPiece, ref ConsoleKey currentAltitudeKey, ref game currentGame) {
+		if (selectedPiece != null) {
+			if (selectedPiece.king) {
+				if (currentAltitudeKey == ConsoleKey.UpArrow) {
+					selectedPiece.move(new int[] {1, -1}, currentGame.gameMap);
+				}
+				else if (currentAltitudeKey == ConsoleKey.DownArrow) {
+					selectedPiece.move(new int[] {1, 1}, currentGame.gameMap);
+				}
+				currentAltitudeKey = new ConsoleKey();
+			}
+			else {
+				if (selectedPiece.value == map.player1) {
+					selectedPiece.move(new int[] {1, 1}, currentGame.gameMap);
+				}
+				else if (selectedPiece.value == map.player2) {
+					selectedPiece.move(new int[] {1, -1}, currentGame.gameMap);
+				}
+			}
+			selectedPiece = null;
+		}
+		else {
+			currentGame.gameMap.move(new int[] {1, 0});
+		}
+	}
+	public void moveLeft(ref piece selectedPiece, ref ConsoleKey currentAltitudeKey, ref game currentGame) {
+		if (selectedPiece != null) {
+			if (selectedPiece.king) {
+				if (currentAltitudeKey == ConsoleKey.UpArrow) {
+					selectedPiece.move(new int[] {-1, -1}, currentGame.gameMap);
+				}
+				else if (currentAltitudeKey == ConsoleKey.DownArrow) {
+					selectedPiece.move(new int[] {-1, 1}, currentGame.gameMap);
+				}
+				currentAltitudeKey = new ConsoleKey();
+			}
+			else {
+				if (selectedPiece.value == map.player1) {
+					selectedPiece.move(new int[] {-1, 1}, currentGame.gameMap);
+				}
+				else if (selectedPiece.value == map.player2) {
+					selectedPiece.move(new int[] {-1, -1}, currentGame.gameMap);
+				}
+			}
+			selectedPiece = null;
+		}
+		else {
+			currentGame.gameMap.move(new int[] {-1, 0});
+		}
+	}
 	public map(map newMap = null) {
 		if (newMap != null) {
 			data = newMap.data;
