@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 class map {
+	public bool player1Turn = true;
 	public const string blank = "   ";
 	public const string player1 = " ⛀ ";
 	public const string player1King = " ⛁ ";
@@ -46,6 +47,65 @@ class map {
 			}
 		}
 		return null;
+	}
+	public bool checkTurnOver() {
+		bool turnIsOver = true;
+		foreach (piece currentPiece in data) {
+			// down and right
+			if (currentPiece.position[0] + 2 < 8 && currentPiece.position[1] + 2 < 8) {
+				if (currentPiece.king != player1Turn) {
+					piece killingPiece = findPiece(new int[] {currentPiece.position[0] + 1, currentPiece.position[1] + 1});
+					if (killingPiece != null) {
+						if ((killingPiece.value != player1) == player1Turn) {
+							if (findPiece(new int[] {currentPiece.position[0] + 2, currentPiece.position[1] + 2}) == null) {
+								turnIsOver = false;
+								break;
+							}
+						}
+					}
+				}
+			}
+			if (currentPiece.position[0] - 2 >= 0 && currentPiece.position[1] + 2 < 8) { // down and left
+				if (currentPiece.king != player1Turn) {
+					piece killingPiece = findPiece(new int[] {currentPiece.position[0] - 1, currentPiece.position[1] + 1});
+					if (killingPiece != null) {
+						if ((killingPiece.value != player1) == player1Turn) {
+							if (findPiece(new int[] {currentPiece.position[0] - 2, currentPiece.position[1] + 2}) == null) {
+								turnIsOver = false;
+								break;
+							}
+						}
+					}
+				}
+			}
+			if (currentPiece.position[0] + 2 < 8 && currentPiece.position[1] - 2 >= 0) { // up and right
+				if (currentPiece.king == player1Turn) {
+					piece killingPiece = findPiece(new int[] {currentPiece.position[0] + 1, currentPiece.position[1] - 1});
+					if (killingPiece != null) {
+						if ((killingPiece.value != player1) == player1Turn) {
+							if (findPiece(new int[] {currentPiece.position[0] + 2, currentPiece.position[1] - 2}) == null) {
+								turnIsOver = false;
+								break;
+							}
+						}
+					}
+				}
+			}
+			if (currentPiece.position[0] - 2 >= 0 && currentPiece.position[1] - 2 >= 0) { // up and left
+				if (currentPiece.king == player1Turn) {
+					piece killingPiece = findPiece(new int[] {currentPiece.position[0] - 1, currentPiece.position[1] - 1});
+					if (killingPiece != null) {
+						if ((killingPiece.value != player1) == player1Turn) {
+							if (findPiece(new int[] {currentPiece.position[0] - 2, currentPiece.position[1] - 2}) == null) {
+								turnIsOver = false;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return turnIsOver;
 	}
 	public int[] getPos() {
 		return selectedPosition;

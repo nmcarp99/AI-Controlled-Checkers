@@ -8,6 +8,7 @@ class main {
 		piece selectedPiece = null;
 		while (!currentGame.gameOver) {
 			currentGame.draw();
+			Console.WriteLine(currentGame.gameMap.player1Turn ? "White's Turn" : "Red's Turn");
 			currentKey = Console.ReadKey();
 			switch (currentKey.Key) {
 				case ConsoleKey.LeftArrow:
@@ -32,6 +33,9 @@ class main {
 				break;
 				case ConsoleKey.Spacebar:
 				selectedPiece = currentGame.gameMap.findPiece(new int[] {currentGame.gameMap.getPos()[1], currentGame.gameMap.getPos()[0]});
+				if ((selectedPiece.value != map.player1) == currentGame.gameMap.player1Turn) {
+					selectedPiece = null;
+				}
 				break;
 			}
 		}
