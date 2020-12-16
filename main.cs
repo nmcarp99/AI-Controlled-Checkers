@@ -33,8 +33,10 @@ class main {
 				break;
 				case ConsoleKey.Spacebar:
 				selectedPiece = currentGame.gameMap.findPiece(new int[] {currentGame.gameMap.getPos()[1], currentGame.gameMap.getPos()[0]});
-				if ((selectedPiece.value != map.player1) == currentGame.gameMap.player1Turn) {
-					selectedPiece = null;
+				if (selectedPiece != null) {
+					if ((selectedPiece.value != map.player1) == currentGame.gameMap.player1Turn) {
+						selectedPiece = null;
+					}
 				}
 				break;
 			}

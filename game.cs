@@ -48,18 +48,78 @@ class map {
 		}
 		return null;
 	}
-	public bool checkTurnOver() {
+	public bool isThereAJump() {
 		bool turnIsOver = true;
 		foreach (piece currentPiece in data) {
+			if ((currentPiece.value == player1) == player1Turn && !currentPiece.dead) {
+				// down and right
+				if (currentPiece.position[0] + 2 < 8 && currentPiece.position[1] + 2 < 8) {
+					if (currentPiece.king != player1Turn) {
+						piece killingPiece = findPiece(new int[] {currentPiece.position[0] + 1, currentPiece.position[1] + 1});
+						if (killingPiece != null && !killingPiece.dead) {
+							if ((killingPiece.value != player1) == player1Turn) {
+								if (findPiece(new int[] {currentPiece.position[0] + 2, currentPiece.position[1] + 2}) == null) {
+									turnIsOver = false;
+									break;
+								}
+							}
+						}
+					}
+				}
+				if (currentPiece.position[0] - 2 >= 0 && currentPiece.position[1] + 2 < 8) { // down and left
+					if (currentPiece.king != player1Turn) {
+						piece killingPiece = findPiece(new int[] {currentPiece.position[0] - 1, currentPiece.position[1] + 1});
+						if (killingPiece != null && !killingPiece.dead) {
+							if ((killingPiece.value != player1) == player1Turn) {
+								if (findPiece(new int[] {currentPiece.position[0] - 2, currentPiece.position[1] + 2}) == null) {
+									turnIsOver = false;
+									break;
+								}
+							}
+						}
+					}
+				}
+				if (currentPiece.position[0] + 2 < 8 && currentPiece.position[1] - 2 >= 0) { // up and right
+					if (currentPiece.king == player1Turn) {
+						piece killingPiece = findPiece(new int[] {currentPiece.position[0] + 1, currentPiece.position[1] - 1});
+						if (killingPiece != null && !killingPiece.dead) {
+							if ((killingPiece.value != player1) == player1Turn) {
+								if (findPiece(new int[] {currentPiece.position[0] + 2, currentPiece.position[1] - 2}) == null) {
+									turnIsOver = false;
+									break;
+								}
+							}
+						}
+					}
+				}
+				if (currentPiece.position[0] - 2 >= 0 && currentPiece.position[1] - 2 >= 0) { // up and left
+					if (currentPiece.king == player1Turn) {
+						piece killingPiece = findPiece(new int[] {currentPiece.position[0] - 1, currentPiece.position[1] - 1});
+						if (killingPiece != null && !killingPiece.dead) {
+							if ((killingPiece.value != player1) == player1Turn) {
+								if (findPiece(new int[] {currentPiece.position[0] - 2, currentPiece.position[1] - 2}) == null) {
+									turnIsOver = false;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return !turnIsOver;
+	}
+	public bool checkTurnOver(piece currentPiece) {
+		bool turnIsOver = true;
+		if (!currentPiece.dead) {
 			// down and right
 			if (currentPiece.position[0] + 2 < 8 && currentPiece.position[1] + 2 < 8) {
 				if (currentPiece.king != player1Turn) {
 					piece killingPiece = findPiece(new int[] {currentPiece.position[0] + 1, currentPiece.position[1] + 1});
-					if (killingPiece != null) {
+					if (killingPiece != null && !killingPiece.dead) {
 						if ((killingPiece.value != player1) == player1Turn) {
 							if (findPiece(new int[] {currentPiece.position[0] + 2, currentPiece.position[1] + 2}) == null) {
 								turnIsOver = false;
-								break;
 							}
 						}
 					}
@@ -68,11 +128,10 @@ class map {
 			if (currentPiece.position[0] - 2 >= 0 && currentPiece.position[1] + 2 < 8) { // down and left
 				if (currentPiece.king != player1Turn) {
 					piece killingPiece = findPiece(new int[] {currentPiece.position[0] - 1, currentPiece.position[1] + 1});
-					if (killingPiece != null) {
+					if (killingPiece != null && !killingPiece.dead) {
 						if ((killingPiece.value != player1) == player1Turn) {
 							if (findPiece(new int[] {currentPiece.position[0] - 2, currentPiece.position[1] + 2}) == null) {
 								turnIsOver = false;
-								break;
 							}
 						}
 					}
@@ -81,11 +140,10 @@ class map {
 			if (currentPiece.position[0] + 2 < 8 && currentPiece.position[1] - 2 >= 0) { // up and right
 				if (currentPiece.king == player1Turn) {
 					piece killingPiece = findPiece(new int[] {currentPiece.position[0] + 1, currentPiece.position[1] - 1});
-					if (killingPiece != null) {
+					if (killingPiece != null && !killingPiece.dead) {
 						if ((killingPiece.value != player1) == player1Turn) {
 							if (findPiece(new int[] {currentPiece.position[0] + 2, currentPiece.position[1] - 2}) == null) {
 								turnIsOver = false;
-								break;
 							}
 						}
 					}
@@ -94,11 +152,10 @@ class map {
 			if (currentPiece.position[0] - 2 >= 0 && currentPiece.position[1] - 2 >= 0) { // up and left
 				if (currentPiece.king == player1Turn) {
 					piece killingPiece = findPiece(new int[] {currentPiece.position[0] - 1, currentPiece.position[1] - 1});
-					if (killingPiece != null) {
+					if (killingPiece != null && !killingPiece.dead) {
 						if ((killingPiece.value != player1) == player1Turn) {
 							if (findPiece(new int[] {currentPiece.position[0] - 2, currentPiece.position[1] - 2}) == null) {
 								turnIsOver = false;
-								break;
 							}
 						}
 					}

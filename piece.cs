@@ -11,9 +11,11 @@ class piece {
 			if (position[1] + relativePosition[1] < 8 && 
 			position[1] + relativePosition[1] > -1) {
 				if (gameMap.findPiece(new int[] {position[0] + relativePosition[0], position[1] + relativePosition[1]}) == null) {
-					position[0] += relativePosition[0];
-					position[1] += relativePosition[1];
-					gameMap.player1Turn = !gameMap.player1Turn;
+					if (!gameMap.isThereAJump()) {
+						position[0] += relativePosition[0];
+						position[1] += relativePosition[1];
+						gameMap.player1Turn = !gameMap.player1Turn;
+					}
 				}
 				else if (gameMap.findPiece(new int[] {position[0] + (relativePosition[0] * 2), position[1] + (relativePosition[1] * 2)}) == null && 
 				position[0] + (relativePosition[0] * 2) < 8 && 
@@ -23,7 +25,7 @@ class piece {
 						gameMap.findPiece(new int[] {position[0] + relativePosition[0], position[1] + relativePosition[1]}).dead = true;
 						position[0] += relativePosition[0] * 2;
 						position[1] += relativePosition[1] * 2;
-						if (gameMap.checkTurnOver()) {
+						if (gameMap.checkTurnOver(this)) {
 							gameMap.player1Turn = !gameMap.player1Turn;
 						}
 					}
